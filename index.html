@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Startseite für larca.de</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Krona+One&family=Albert+Sans:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: Velonify-Pitch (eckig, große Typo, viel Weißraum) rahmt ein Live-Mockup der neuen Larca-Startseite.
+   Das Mockup hat eine eigene Welt (Larca-Blau, Signalgelb, Papier) und reagiert per Container Query auf die Breite des Fensters. */
+:root{
+  color-scheme: light;
+  --bordeaux:#45142D; --espresso:#2C0E18; --ice:#C5D8E6; --ice-soft:#EAF1F6;
+  --white:#FFFFFF; --ink:#24101A; --muted:#6B5560; --line:#E7DFE3;
+  --display:"Krona One","Arial Black",Helvetica,sans-serif;
+  --body:"Albert Sans","Helvetica Neue",Arial,sans-serif;
+  --gutter:clamp(16px,4vw,48px);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--white);color:var(--ink);font:400 17px/1.6 var(--body)}
+h1,h2,h3{font-family:var(--display);text-transform:uppercase;font-weight:400;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:inherit;text-underline-offset:.2em}
+button{font:inherit;color:inherit}
+::selection{background:var(--ice);color:var(--espresso)}
+:focus-visible{outline:2px solid var(--bordeaux);outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:var(--gutter)}
+.cap{font:700 12px/1.2 var(--body);letter-spacing:.16em;text-transform:uppercase}
+
+/* ---------- Pitch ---------- */
+.topbar{background:var(--espresso);color:var(--ice)}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:18px;flex-wrap:wrap}
+.topbar img{height:16px;width:auto;display:block}
+.topbar span{font-size:13px;letter-spacing:.06em;color:#d9c9d0}
+.hero{background:var(--espresso);color:var(--white);padding-block:clamp(40px,7vw,96px) clamp(48px,8vw,104px)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,5vw,72px);align-items:center}
+.hero h1{font-size:clamp(30px,4.4vw,58px);line-height:1.08;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--ice)}
+.hero p.lead{margin-top:26px;max-width:34em;font-size:clamp(17px,1.5vw,20px);color:#eadde3}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 22px;font:700 14px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:2px solid var(--ice);cursor:pointer;background:none;transition:background .25s,color .25s,border-color .25s}
+.btn.solid{background:var(--ice);color:var(--espresso)}
+.btn.ghost{color:var(--ice)}
+.btn:hover{background:var(--white);border-color:var(--white);color:var(--espresso)}
+.hero-tile{border:1px solid #5a2a40;background:var(--ice-soft);padding:clamp(14px,2vw,24px);display:grid;grid-template-columns:1.1fr 1fr;grid-template-rows:1fr 1fr auto;gap:12px;align-items:stretch}
+.hero-tile figure{margin:0;background:#fff}
+.hero-tile figure:first-child{grid-row:span 2}
+.hero-tile img{display:block;width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.hero-tile figcaption{grid-column:1/-1;font-size:14px;color:var(--muted);margin-top:4px}
+
+section.block{padding-block:clamp(56px,8vw,112px)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:end;margin-bottom:clamp(32px,5vw,56px)}
+.sec-head h2{font-size:clamp(24px,3vw,40px);line-height:1.12;color:var(--bordeaux)}
+.sec-head p{color:var(--muted);max-width:36em}
+.obs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:2px solid var(--bordeaux)}
+.obs article{padding:26px 28px 30px 0;border-bottom:1px solid var(--line)}
+.obs article:nth-child(odd){border-right:1px solid var(--line)}
+.obs article:nth-child(even){padding-left:28px}
+.obs h3{font-size:15px;line-height:1.35;color:var(--ink);margin-bottom:10px}
+.obs p{color:var(--muted);font-size:16px;max-width:36em}
+.note{font-size:13px;color:var(--muted);margin-top:18px}
+
+.demo{background:var(--ice-soft)}
+.demo .sec-head h2{color:var(--espresso)}
+.demo-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.howto{display:flex;gap:10px 28px;flex-wrap:wrap;font-size:15px}
+.howto span{display:flex;gap:8px;align-items:baseline}
+.howto b{font:700 11px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--bordeaux)}
+.dev{display:inline-flex;border:1px solid var(--bordeaux)}
+.dev button{background:none;border:0;padding:10px 16px;font:700 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;cursor:pointer;color:var(--bordeaux)}
+.dev button[aria-pressed="true"]{background:var(--bordeaux);color:var(--ice)}
+.stage{background:#dbe5ec;padding:clamp(0px,2vw,28px);display:flex;justify-content:center}
+.browser{background:#fff;border:1px solid #c9d6e0;box-shadow:0 30px 60px -30px rgba(44,14,24,.35);width:100%;transition:max-width .6s var(--ease);max-width:1400px}
+.stage[data-dev="mobile"] .browser{max-width:400px}
+.chrome{display:flex;align-items:center;gap:14px;padding:10px 14px;background:#EEF0F2;border-bottom:1px solid #dde1e5}
+.dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:#cfd3d8;display:block}
+.url{flex:1;min-width:0;background:#fff;border:1px solid #dde1e5;padding:6px 12px;font:500 13px/1.2 "Barlow",sans-serif;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mock-tag{font:700 10px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--bordeaux);white-space:nowrap}
+
+.shopify{background:var(--espresso);color:#fff}
+.shopify .sec-head h2{color:#fff}
+.shopify .sec-head p{color:#d9c9d0}
+.steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:2px solid var(--ice)}
+.steps article{padding:26px 28px 30px 0;border-bottom:1px solid #5a2a40}
+.steps article:nth-child(odd){border-right:1px solid #5a2a40}
+.steps article:nth-child(even){padding-left:28px}
+.steps h3{font-size:15px;line-height:1.35;color:var(--ice);margin-bottom:10px}
+.steps p{color:#d9c9d0;font-size:16px;max-width:36em}
+.proof{margin-top:clamp(32px,5vw,56px);padding:24px 26px;background:#3a1424;display:flex;gap:24px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.proof p{max-width:42em;color:#eadde3}
+.foot{background:var(--espresso);color:#b79ca8;border-top:1px solid #5a2a40;font-size:14px}
+.foot .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .hero .wrap,.sec-head{grid-template-columns:minmax(0,1fr)}
+  .obs,.steps{grid-template-columns:minmax(0,1fr)}
+  .obs article,.steps article{padding:22px 0!important;border-right:0!important}
+}
+@media (max-width:760px){.dev{display:none}}
+
+/* =====================================================================
+   LARCA-MOCKUP  (eigene Welt: Fachhandel am Berg — Larca-Blau, Signalgelb, Papier)
+   ===================================================================== */
+.shop{
+  --blue:#312783; --blue-deep:#1B1555; --blue-ink:#15123F; --sun:#FFE100; --paper:#F4F1EA; --paper-2:#E9E4D8;
+  --s-ink:#16143A; --s-muted:#5B5878; --s-line:#DDD8CA;
+  --f-head:"Barlow Condensed","Arial Narrow",sans-serif; --f-body:"Barlow","Helvetica Neue",Arial,sans-serif;
+  container-type:inline-size; container-name:shop;
+  font:400 16px/1.45 var(--f-body); color:var(--s-ink); background:#fff;
+  font-variant-numeric:tabular-nums; scrollbar-color:var(--blue) var(--paper);
+}
+.shop *{box-sizing:border-box}
+.shop ::selection{background:var(--sun);color:var(--blue-ink)}
+.shop a{text-decoration:none}
+.shop a:focus-visible,.shop button:focus-visible{outline:3px solid var(--blue-ink);outline-offset:2px}
+.shop .l-hero :focus-visible,.shop .help :focus-visible,.shop .h-nav :focus-visible,.shop .s-foot :focus-visible{outline-color:var(--sun)}
+.shop h1,.shop h2,.shop h3{font-family:var(--f-head);font-weight:800;text-transform:uppercase;letter-spacing:.005em;text-wrap:balance;margin:0}
+.shop svg.i{width:1.25em;height:1.25em;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:square;stroke-linejoin:miter;flex:none}
+.shop .pad{padding-inline:clamp(16px,3.2cqi,44px)}
+
+/* Utility */
+.u-bar{background:var(--blue-ink);color:#d5d3ee;font-size:13.5px;font-weight:500}
+.u-bar .pad{display:flex;justify-content:space-between;gap:8px 24px;padding-block:8px;flex-wrap:wrap}
+.u-bar span{display:inline-flex;align-items:center;gap:8px}
+.u-bar b{color:var(--sun);font-weight:700}
+.u-bar a{color:#fff;font-weight:600}
+
+/* Header */
+.h-main{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(14px,3cqi,44px);align-items:center;padding-block:14px}
+.h-logo img{height:58px;width:auto;display:block}
+.h-search{display:flex;align-items:center;gap:10px;border:2px solid var(--blue);background:#fff;padding:0 0 0 14px;height:48px;max-width:640px;width:100%;justify-self:center}
+.h-search input{flex:1;min-width:0;border:0;background:none;font:500 16px var(--f-body);color:var(--s-ink);height:100%;outline:none}
+.h-search input::placeholder{color:#6d6a8c}
+.h-search:focus-within{outline:3px solid var(--blue-ink);outline-offset:2px}
+.h-search button{height:100%;border:0;background:var(--blue);color:#fff;padding:0 18px;cursor:pointer;display:grid;place-items:center;transition:background .2s}
+.h-search button:hover{background:var(--blue-deep)}
+.h-icons{display:flex;gap:4px}
+.h-icons a,.h-icons button{position:relative;display:grid;justify-items:center;gap:2px;padding:6px 10px;font:600 12px/1 var(--f-body);color:var(--s-ink);background:none;border:0;cursor:pointer;min-width:56px}
+.h-icons a:hover,.h-icons button:hover{color:var(--blue)}
+.h-icons .i{width:26px;height:26px}
+.cnt{position:absolute;top:0;right:8px;min-width:19px;height:19px;padding:0 5px;background:var(--sun);color:var(--blue-ink);font:800 12px/19px var(--f-body);text-align:center}
+.cnt.bump{animation:bump .5s var(--ease)}
+@keyframes bump{0%{transform:scale(1)}30%{transform:scale(1.5)}100%{transform:scale(1)}}
+.h-nav{background:var(--blue);color:#fff}
+.h-nav ul{list-style:none;margin:0;padding:0;display:flex;overflow-x:auto;scrollbar-width:none}
+.h-nav li{flex:none}
+.h-nav a{display:block;padding:14px clamp(12px,1.6cqi,22px);font:700 15.5px/1 var(--f-head);letter-spacing:.09em;text-transform:uppercase;color:#fff;position:relative;transition:background .2s}
+.h-nav a:hover{background:var(--blue-deep)}
+.h-nav li:last-child{margin-left:auto}
+.h-nav li:last-child a{background:var(--sun);color:var(--blue-ink)}
+.h-nav li:last-child a:hover{background:#fff}
+
+/* Hero */
+.l-hero{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);min-height:clamp(440px,48cqi,600px);background:var(--blue);position:relative;overflow:hidden}
+.l-hero::before{content:"";position:absolute;inset:0;background:url(topo.svg) left center/cover no-repeat;opacity:.16;pointer-events:none}
+.hero-copy{position:relative;display:flex;flex-direction:column;justify-content:center;padding:clamp(28px,4cqi,56px) clamp(20px,3.6cqi,52px) clamp(28px,4cqi,56px) clamp(16px,3.2cqi,44px);color:#fff}
+.hero-copy h1{font-size:clamp(40px,5.6cqi,88px);line-height:.92;letter-spacing:-.005em}
+.hero-copy h1 span{display:block;overflow:hidden}
+.hero-copy h1 span b{display:block;font-weight:800;animation:rise 1s var(--ease) both}
+.hero-copy h1 span:nth-child(2) b{animation-delay:.09s;color:var(--sun)}
+.hero-copy h1 span:nth-child(3) b{animation-delay:.18s}
+@keyframes rise{from{transform:translateY(105%)}to{transform:none}}
+.hero-copy p{margin-top:20px;font-size:clamp(16px,1.5cqi,19px);color:#dcdaf5;max-width:26em}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.sbtn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 24px;font:800 17px/1 var(--f-head);letter-spacing:.08em;text-transform:uppercase;border:2px solid transparent;cursor:pointer;transition:background .2s,color .2s,transform .2s var(--ease)}
+.sbtn.sun{background:var(--sun);color:var(--blue-ink)}
+.sbtn.sun:hover{background:#fff}
+.sbtn.line{border-color:rgba(255,255,255,.55);color:#fff;background:none}
+.sbtn.line:hover{background:#fff;color:var(--blue-ink);border-color:#fff}
+.sbtn:active{transform:translateY(1px)}
+.sbtn .i{width:1.1em;height:1.1em}
+.hero-media{position:relative;min-height:320px}
+.hero-media img.photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:32% 50%}
+.pick{position:absolute;right:clamp(12px,2cqi,28px);bottom:clamp(12px,2cqi,28px);width:min(300px,62%);background:#fff;color:var(--s-ink);display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:10px 14px 10px 10px;box-shadow:0 18px 30px -12px rgba(21,18,63,.55)}
+.pick img{width:96px;height:112px;object-fit:contain;mix-blend-mode:multiply;align-self:center}
+.pick small{font:700 11.5px/1 var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.pick strong{display:block;font:700 15px/1.2 var(--f-body);margin:5px 0 4px}
+.pick .p-now{font:800 28px/1 var(--f-head);color:var(--blue)}
+.pick s{font-size:13px;color:var(--s-muted);margin-left:6px}
+.pick a{display:inline-block;margin-top:6px;font:700 13px/1 var(--f-body);color:var(--blue);border-bottom:2px solid var(--sun);padding-bottom:2px}
+
+/* Trust */
+.trust{background:var(--paper);border-bottom:1px solid var(--s-line)}
+.trust ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.trust li{display:flex;gap:14px;align-items:center;padding:20px 16px 20px 0}
+.trust li+li{padding-left:22px;border-left:1px solid var(--s-line)}
+.trust .i{width:38px;height:38px;color:var(--blue);stroke-width:1.5}
+.trust b{display:block;font:800 20px/1.05 var(--f-head);text-transform:uppercase;letter-spacing:.02em}
+.trust span{font-size:14px;color:var(--s-muted)}
+
+/* Section head */
+.sh{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:clamp(20px,2.6cqi,34px)}
+.sh h2{font-size:clamp(36px,4.8cqi,60px);line-height:.95;color:var(--blue-ink)}
+.sh .more{font:700 15px/1 var(--f-body);color:var(--blue);display:inline-flex;gap:8px;align-items:center;border-bottom:2px solid var(--sun);padding-bottom:4px;white-space:nowrap}
+.sh .more:hover{background:var(--sun)}
+.sec{padding-block:clamp(36px,5.4cqi,76px)}
+
+/* Kategorien */
+.bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:minmax(210px,22cqi);gap:clamp(8px,1cqi,14px)}
+.tile{position:relative;overflow:hidden;background:var(--paper);display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(14px,1.8cqi,24px);color:var(--blue-ink);isolation:isolate;transition:background .35s var(--ease)}
+.tile img{position:absolute;right:4%;top:6%;height:78%;width:auto;max-width:62%;object-fit:contain;mix-blend-mode:multiply;z-index:-1;transition:transform .7s var(--ease)}
+.tile:hover img{transform:scale(1.07) rotate(-1.5deg)}
+.tile h3{font-size:clamp(30px,3.6cqi,48px);line-height:.95}
+.tile p{font-size:14.5px;color:var(--s-muted);margin-top:6px;max-width:16em}
+.tile .go{position:absolute;left:clamp(14px,1.8cqi,24px);top:clamp(14px,1.8cqi,24px);width:40px;height:40px;background:var(--blue);color:#fff;display:grid;place-items:center;transition:background .2s,color .2s,transform .3s var(--ease)}
+.tile:hover .go{background:var(--sun);color:var(--blue-ink);transform:translateX(4px)}
+.t-cloth{grid-column:span 5;grid-row:span 2;background:#DCE3EE}
+.t-cloth img{height:70%;right:50%;transform:translateX(50%);top:9%;max-width:80%}
+.t-cloth:hover img{transform:translateX(50%) scale(1.06) rotate(-1.5deg)}
+.t-shoes{grid-column:span 4;background:var(--paper-2)}
+.t-pack{grid-column:span 3;background:#D9E8E2}
+.t-pack img{height:62%;max-width:48%;top:5%;right:6%}
+.t-pack h3{font-size:clamp(26px,3cqi,40px)}
+.t-gear{grid-column:span 3;background:#EFE6CF}
+.t-gear img{height:74%;max-width:78%;top:4%;right:2%}
+.t-sale{grid-column:span 4;background:var(--sun);color:var(--blue-ink)}
+.t-sale h3{font-size:clamp(46px,6.4cqi,84px);line-height:.88}
+.t-sale p{color:#3a3500}
+.t-sale .go{background:var(--blue-ink);color:var(--sun);left:auto;right:clamp(14px,1.8cqi,24px)}
+.t-sale:hover .go{background:#fff;color:var(--blue-ink)}
+.t-sale::after{content:"";position:absolute;inset:0;background:url(topo.svg) center/cover;opacity:.2;filter:invert(1);z-index:-1}
+
+/* Angebote */
+.deals{background:var(--paper)}
+.tabs{display:inline-flex;gap:0;border:2px solid var(--blue)}
+.tabs button{background:none;border:0;height:42px;padding:0 20px;font:800 16px/1 var(--f-head);text-transform:uppercase;letter-spacing:.08em;color:var(--blue);cursor:pointer;transition:background .2s,color .2s}
+.tabs button[aria-selected="true"]{background:var(--blue);color:#fff}
+.tabs button:not([aria-selected="true"]):hover{background:var(--sun)}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(8px,1cqi,14px)}
+.card{background:#fff;display:flex;flex-direction:column;position:relative;transition:box-shadow .35s var(--ease),transform .35s var(--ease)}
+.card:hover{box-shadow:0 22px 34px -20px rgba(21,18,63,.45);transform:translateY(-3px)}
+.card[hidden]{display:none}
+.c-img{aspect-ratio:1/1.08;display:grid;place-items:center;padding:14px;position:relative;overflow:hidden}
+.c-img img{width:86%;height:100%;object-fit:contain;transition:transform .6s var(--ease)}
+.card:hover .c-img img{transform:scale(1.05)}
+.badge{position:absolute;left:0;top:14px;background:var(--sun);color:var(--blue-ink);font:800 22px/1 var(--f-head);padding:7px 12px 6px;letter-spacing:.02em}
+.c-body{padding:6px 16px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.c-brand{font:700 12px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--s-muted)}
+.c-name{font:700 17px/1.2 var(--f-body);margin-top:-4px}
+.c-price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.c-price b{font:800 34px/1 var(--f-head);color:var(--blue);letter-spacing:.01em}
+.c-price s{font-size:15px;color:var(--s-muted)}
+.c-save{font-size:13.5px;font-weight:600;color:#1F6B3A;margin-top:-4px}
+.sizes{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.sizes button{min-width:40px;height:36px;padding:0 9px;background:#fff;border:1.5px solid var(--s-line);font:700 14px/1 var(--f-body);color:var(--s-ink);cursor:pointer;transition:border-color .15s,background .15s,color .15s}
+.sizes button:hover{border-color:var(--blue)}
+.sizes button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.add{height:48px;width:100%;border:2px solid var(--blue);background:#fff;color:var(--blue);font:800 16px/1 var(--f-head);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:background .2s,color .2s}
+.add[aria-disabled="true"]{border-color:var(--s-line);color:#6d6a8c;cursor:not-allowed}
+.add:not([aria-disabled="true"]){background:var(--blue);color:#fff}
+.add:not([aria-disabled="true"]):hover{background:var(--blue-deep)}
+.add.done{background:#1F6B3A!important;border-color:#1F6B3A}
+
+/* Marken-Welten */
+.worlds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,1cqi,14px)}
+.world{position:relative;aspect-ratio:16/11;overflow:hidden;display:flex;align-items:flex-end;color:#fff;isolation:isolate}
+.world img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.1s var(--ease)}
+.world:hover img{transform:scale(1.05)}
+.world::after{content:"";position:absolute;inset:auto 0 0 0;height:55%;background:linear-gradient(to top,rgba(21,18,63,.86),rgba(21,18,63,0));z-index:-1}
+.world div{padding:clamp(14px,1.8cqi,24px);display:flex;justify-content:space-between;align-items:end;gap:12px;width:100%}
+.world h3{font-size:clamp(26px,3cqi,40px);line-height:.95}
+.world p{font-size:14.5px;color:#e4e2fa;margin-top:4px}
+.world .go{width:42px;height:42px;background:var(--sun);color:var(--blue-ink);display:grid;place-items:center;flex:none;transition:transform .3s var(--ease)}
+.world:hover .go{transform:translateX(4px)}
+.logos{margin-top:clamp(8px,1cqi,14px);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));border:1px solid var(--s-line)}
+.logos a{display:flex;align-items:center;justify-content:center;height:78px;padding:12px 14px;border-right:1px solid var(--s-line);transition:background .25s}
+.logos a:last-child{border-right:0}
+.logos a:hover{background:var(--paper)}
+.logos img{max-width:100%;max-height:52px;width:auto;height:auto;object-fit:contain;filter:grayscale(1);opacity:.7;transition:filter .25s,opacity .25s}
+.logos a:hover img{filter:none;opacity:1}
+
+/* Beratung */
+.help{background:var(--blue);color:#fff;position:relative;overflow:hidden}
+.help::before{content:"";position:absolute;inset:0;background:url(topo.svg) right center/cover;opacity:.14}
+.help .pad{position:relative;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,5cqi,80px);align-items:center;padding-block:clamp(40px,6cqi,84px)}
+.help h2{font-size:clamp(38px,5.6cqi,72px);line-height:.92}
+.help h2 em{font-style:normal;color:var(--sun)}
+.help p{margin-top:16px;color:#dcdaf5;max-width:30em;font-size:17px}
+.tel{display:inline-flex;align-items:center;gap:14px;margin-top:24px;font:800 clamp(30px,4cqi,52px)/1 var(--f-head);color:#fff;letter-spacing:.01em;border-bottom:3px solid var(--sun);padding-bottom:6px}
+.tel:hover{color:var(--sun)}
+.tel .i{width:.8em;height:.8em}
+.hours{font-size:14.5px;color:#cfcdee;margin-top:10px}
+.svc{list-style:none;margin:0;padding:0;border-top:2px solid var(--sun)}
+.svc a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.22);font:700 19px/1.2 var(--f-body);color:#fff;transition:padding .3s var(--ease),color .2s}
+.svc a:hover{padding-left:10px;color:var(--sun)}
+.svc span{display:flex;align-items:center;gap:14px}
+
+/* Newsletter */
+.news{background:var(--sun);color:var(--blue-ink)}
+.news .pad{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(16px,4cqi,56px);align-items:center;padding-block:clamp(28px,3.6cqi,48px)}
+.news h2{font-size:clamp(32px,4cqi,52px);line-height:.95}
+.news p{font-size:15px;margin-top:6px;color:#3a3500}
+.news form{display:flex;height:56px;border:2px solid var(--blue-ink);background:#fff}
+.news input{flex:1;min-width:0;border:0;padding:0 16px;font:500 17px var(--f-body);background:none;color:var(--blue-ink);outline:none}
+.news input::placeholder{color:#6d6a8c}
+.news form:focus-within{outline:3px solid var(--blue-ink);outline-offset:2px}
+.news button{border:0;background:var(--blue-ink);color:#fff;padding:0 24px;font:800 17px/1 var(--f-head);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.news button:hover{background:var(--blue)}
+.news .ok{font-weight:700;color:var(--blue-ink)}
+
+/* Footer */
+.s-foot{background:var(--blue-ink);color:#c5c3e6;font-size:14.5px}
+.s-foot .pad{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px;padding-block:44px 28px}
+.s-foot img{height:52px;width:auto;background:#fff;padding:4px 8px;display:block;margin-bottom:14px}
+.s-foot h4{margin:0 0 12px;font:800 16px/1 var(--f-head);letter-spacing:.1em;text-transform:uppercase;color:#fff}
+.s-foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.s-foot a{color:#c5c3e6}.s-foot a:hover{color:var(--sun)}
+.s-foot .legal{border-top:1px solid rgba(255,255,255,.14);padding-block:16px;font-size:13px;color:#9f9cc9;display:flex;justify-content:space-between;gap:8px 20px;flex-wrap:wrap}
+
+/* Toast */
+.toast{position:fixed;left:50%;bottom:24px;z-index:50;transform:translate(-50%,24px);opacity:0;pointer-events:none;background:var(--espresso);color:#fff;display:flex;gap:14px;align-items:center;padding:14px 18px;font:600 15px/1.3 var(--body);transition:transform .5s var(--ease),opacity .3s;box-shadow:0 20px 40px -16px rgba(0,0,0,.5);max-width:calc(100vw - 32px)}
+.toast.show{transform:translate(-50%,0);opacity:1}
+.toast i{width:10px;height:10px;background:#FFE100;flex:none}
+
+/* ---------- Container Queries: das Mockup antwortet auf SEINE Breite ---------- */
+@container shop (max-width:1080px){
+  .trust ul{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .trust li:nth-child(3){border-left:0;padding-left:0}
+  .trust li:nth-child(n+3){border-top:1px solid var(--s-line)}
+  .grid4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .logos{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .logos a:nth-child(6){border-right:0}
+  .logos a:nth-child(n+7){border-top:1px solid var(--s-line)}
+  .s-foot .pad{grid-template-columns:1fr 1fr}
+}
+@container shop (max-width:760px){
+  .u-bar span:not(:first-child){display:none}
+  .h-main{grid-template-columns:auto minmax(0,1fr)}
+  .h-search{grid-column:1/-1;grid-row:2;max-width:none}
+  .h-icons{justify-self:end}
+  .h-icons a:not(.keep),.h-icons .i+span{display:none}
+  .h-icons button,.h-icons a{min-width:44px;padding:6px}
+  .h-icons button span,.h-icons a span{display:none}
+  .h-logo img{height:48px}
+  .l-hero{grid-template-columns:minmax(0,1fr);min-height:0}
+  .hero-media{min-height:300px;order:-1}
+  .hero-copy h1{font-size:clamp(46px,15cqi,76px)}
+  .pick{position:relative;right:auto;bottom:auto;width:auto;margin:0;grid-column:auto}
+  .hero-media{display:flex;flex-direction:column;justify-content:flex-end}
+  .hero-media img.photo{height:100%}
+  .pick{margin:0 12px 12px;align-self:stretch}
+  .bento{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(200px,52cqi)}
+  .tile,.t-cloth,.t-shoes,.t-pack,.t-gear,.t-sale{grid-column:span 1;grid-row:span 1}
+  .t-cloth{grid-column:span 2;grid-row:span 1}
+  .t-gear{grid-column:span 2}
+  .t-gear img{right:8%;height:70%}
+  .t-sale{grid-column:span 2;grid-row:span 1}
+  .t-cloth img{height:80%;right:6%;transform:none;top:6%;max-width:50%}
+  .t-cloth:hover img{transform:scale(1.06) rotate(-1.5deg)}
+  .sh{flex-direction:column;align-items:flex-start}
+  .grid4{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-inline:calc(-1*clamp(16px,3.2cqi,44px));padding-inline:clamp(16px,3.2cqi,44px);scrollbar-width:none}
+  .grid4 .card{flex:0 0 74%;scroll-snap-align:start}
+  .worlds{grid-template-columns:minmax(0,1fr)}
+  .world{aspect-ratio:16/10}
+  .logos{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .logos a{border-top:1px solid var(--s-line);border-right:1px solid var(--s-line)!important}
+  .logos a:nth-child(3n){border-right:0!important}
+  .help .pad,.news .pad{grid-template-columns:minmax(0,1fr)}
+  .s-foot .pad{grid-template-columns:minmax(0,1fr)}
+  .trust li{padding:14px 8px 14px 0}
+  .trust li+li{padding-left:14px}
+  .trust b{font-size:17px}
+  .trust span{font-size:13px}
+}
+.shop .cap-hide{display:none}
+
+@media (prefers-reduced-motion:reduce){
+  .shop *,.shop *::before{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- Icon-Sprite: eckige 1.75px-Linien, ein Strichstil für alles -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-mount" viewBox="0 0 24 24"><path d="M2 20 9 7l4 7 3-4 6 10z"/><path d="M7.5 10h3"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V3h9l9 9-9 9z"/><path d="M8 8h.01"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5z"/><path d="M9 11h6M9 15h6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5 4 12.4A4.9 4.9 0 0 1 11 5.5l1 1 1-1a4.9 4.9 0 0 1 7 6.9z"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M4 8h16l-1.2 13H5.2z"/><path d="M8.5 8V6.5a3.5 3.5 0 0 1 7 0V8"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 5.5 19.5 12 13 18.5"/></symbol>
+  <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M3 15 15 3l6 6L9 21z"/><path d="m7 11 2.5 2.5M10 8l2.5 2.5M13 5l2 2"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><path d="M3 9h18v4H3zM5 13v8h14v-8M12 9v12"/><path d="M12 9S9.5 3 7 5s1.5 4 5 4zM12 9s2.5-6 5-4-1.5 4-5 4z"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><path d="M3 9 5 3h14l2 6M3 9h18M3 9v12h18V9"/><path d="M9 21v-6h6v6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></symbol>
+</svg>
+
+<header class="topbar">
+  <div class="wrap">
+    <img src="velonify_ice.png" alt="Velonify">
+    <span>Konzept für LARCA · Startseite · Stand 07.10.2026</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1>200.000 Artikel. Eine Startseite, die <em>davon verkauft.</em></h1>
+      <p class="lead">Dieselben Marken, dieselben Fotos, dieselben Preise. Neu geordnet: ein Angebot im ersten Blick, Kategorien als Einstieg, Größe und Warenkorb direkt in der Kachel. Darunter der Plan, den Shop auf Shopify zu bringen.</p>
+      <div class="cta-row">
+        <a class="btn solid" href="#demo">Startseite ansehen</a>
+        <a class="btn ghost" href="#shopify">Migration auf Shopify</a>
+      </div>
+    </div>
+    <div class="hero-tile">
+      <figure><img src="p_burma.png" alt="Meindl Burma PRO MFS Ladies, Wanderschuh"></figure>
+      <figure><img src="p_tornado.png" alt="Tornado II, Softshelljacke"></figure>
+      <figure><img src="p_aircontact.png" alt="Deuter Aircontact 60+10 SL, Trekkingrucksack"></figure>
+      <figcaption>Eure Assets, neu inszeniert. Kein neues Fotoshooting nötig.</figcaption>
+    </div>
+  </div>
+</section>
+
+<section class="block demo" id="demo">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Probiert es aus</h2>
+      <p>Das ist die neue Startseite mit echten Bildern und Preisen von larca.de. Größe wählen, in den Warenkorb legen, Damen und Herren umschalten, Fenster auf Handybreite stellen.</p>
+    </div>
+    <div class="demo-bar">
+      <div class="howto">
+        <span><b>Größe</b> in der Kachel wählen</span>
+        <span><b>Tabs</b> Damen / Herren</span>
+        <span><b>Kacheln</b> überfahren</span>
+      </div>
+      <div class="dev" role="group" aria-label="Ansicht">
+        <button type="button" aria-pressed="true" data-dev="desktop">Desktop</button>
+        <button type="button" aria-pressed="false" data-dev="mobile">Mobil</button>
+      </div>
+    </div>
+
+    <div class="stage" id="stage" data-dev="desktop">
+    <div class="browser">
+      <div class="chrome"><div class="dots"><i></i><i></i><i></i></div><div class="url">larca.de</div><div class="mock-tag">Konzept</div></div>
+
+      <div class="shop" id="shop">
+        <div class="u-bar"><div class="pad">
+          <span><svg class="i"><use href="#i-mount"/></svg><b>46 Jahre</b> Outdoor-Erfahrung</span>
+          <span><svg class="i"><use href="#i-doc"/></svg>Kauf auf Rechnung</span>
+          <span><svg class="i"><use href="#i-phone"/></svg>Beratung <a href="tel:+497181938060">+49 7181 938060</a> · Mo–Fr 9–17 Uhr</span>
+        </div></div>
+
+        <div class="pad h-main">
+          <a class="h-logo" href="#" aria-label="LARCA Outdoor's Best, Startseite"><img src="larca_logo.png" alt="LARCA Outdoor's Best"></a>
+          <form class="h-search" role="search" onsubmit="return false">
+            <svg class="i" style="color:var(--blue)"><use href="#i-search"/></svg>
+            <input type="search" placeholder="Marke, Produkt oder Artikelnummer suchen" aria-label="Suche">
+            <button type="submit" aria-label="Suchen"><svg class="i"><use href="#i-arrow"/></svg></button>
+          </form>
+          <div class="h-icons">
+            <a href="#" class="keep"><svg class="i"><use href="#i-user"/></svg><span>Konto</span></a>
+            <a href="#"><svg class="i"><use href="#i-heart"/></svg><span>Merkzettel</span></a>
+            <button type="button" id="cartBtn" class="keep" aria-label="Warenkorb"><svg class="i"><use href="#i-bag"/></svg><span>Warenkorb</span><em class="cnt" id="cnt" style="font-style:normal">0</em></button>
+          </div>
+        </div>
+
+        <nav class="h-nav" aria-label="Hauptmenü"><div class="pad"><ul>
+          <li><a href="#">Bekleidung</a></li><li><a href="#">Schuhe</a></li><li><a href="#">Rucksäcke &amp; Taschen</a></li><li><a href="#">Ausrüstung</a></li><li><a href="#">Kinder</a></li><li><a href="#">Marken</a></li><li><a href="#">Sale</a></li>
+        </ul></div></nav>
+
+        <!-- HERO -->
+        <section class="l-hero" aria-label="Aktuelles">
+          <div class="hero-copy">
+            <h1><span><b>Raus.</b></span><span><b>Mit Ausrüstung,</b></span><span><b>die hält.</b></span></h1>
+            <p>Große Marken, faire Preise. Rund 200.000 Artikel direkt ab Lager, beraten von Leuten, die selbst unterwegs sind.</p>
+            <div class="hero-cta">
+              <a class="sbtn sun" href="#deals">Angebote ansehen <svg class="i"><use href="#i-arrow"/></svg></a>
+              <a class="sbtn line" href="#kat">Nach Kategorie</a>
+            </div>
+          </div>
+          <div class="hero-media">
+            <img class="photo" src="slider_Hanwag.png" alt="Wanderin auf einem Bergrücken, Hanwag Outdoor Footwear">
+            <a class="pick" href="#deals">
+              <img src="p_ramble.png" alt="">
+              <div><small>Angebot der Woche</small><strong>Marmot Ramble Component Jacket</strong><span class="p-now">114,95 €</span><s>249,95 €</s><br><a href="#deals" style="margin-top:6px">Jetzt sichern</a></div>
+            </a>
+          </div>
+        </section>
+
+        <!-- TRUST -->
+        <section class="trust" aria-label="Vorteile"><div class="pad"><ul>
+          <li><svg class="i"><use href="#i-mount"/></svg><div><b>46 Jahre</b><span>Outdoor-Erfahrung</span></div></li>
+          <li><svg class="i"><use href="#i-box"/></svg><div><b>200.000 Artikel</b><span>lagernd und sofort versandfertig</span></div></li>
+          <li><svg class="i"><use href="#i-tag"/></svg><div><b>Große Marken</b><span>zu fairen Preisen</span></div></li>
+          <li><svg class="i"><use href="#i-doc"/></svg><div><b>Kauf auf Rechnung</b><span>oder per Vorkasse</span></div></li>
+        </ul></div></section>
+
+        <!-- KATEGORIEN -->
+        <section class="sec" id="kat"><div class="pad">
+          <div class="sh"><h2>Wohin geht's?</h2><a class="more" href="#">Alle Kategorien <svg class="i"><use href="#i-arrow"/></svg></a></div>
+          <div class="bento">
+            <a class="tile t-cloth" href="#"><span class="go"><svg class="i"><use href="#i-arrow"/></svg></span><img src="p_tornado.png" alt=""><h3>Bekleidung</h3><p>Jacken, Fleece und Funktionsshirts für Damen und Herren</p></a>
+            <a class="tile t-shoes" href="#"><span class="go"><svg class="i"><use href="#i-arrow"/></svg></span><img src="p_burma.png" alt=""><h3>Schuhe</h3><p>Wandern und Trekking</p></a>
+            <a class="tile t-pack" href="#"><span class="go"><svg class="i"><use href="#i-arrow"/></svg></span><img src="p_aircontact.png" alt=""><h3>Rucksäcke<br>&amp; Taschen</h3></a>
+            <a class="tile t-gear" href="#"><span class="go"><svg class="i"><use href="#i-arrow"/></svg></span><img src="p_kocher.png" alt=""><h3>Ausrüstung</h3></a>
+            <a class="tile t-sale" href="#"><span class="go"><svg class="i"><use href="#i-arrow"/></svg></span><h3>Sale<br>bis −63 %</h3><p>Reduzierte Markenware, solange der Vorrat reicht</p></a>
+          </div>
+        </div></section>
+
+        <!-- ANGEBOTE -->
+        <section class="sec deals" id="deals"><div class="pad">
+          <div class="sh">
+            <h2>Jetzt im Angebot</h2>
+            <div class="tabs" role="tablist" aria-label="Zielgruppe">
+              <button role="tab" aria-selected="true" data-f="all">Alle</button>
+              <button role="tab" aria-selected="false" data-f="damen">Damen</button>
+              <button role="tab" aria-selected="false" data-f="herren">Herren</button>
+            </div>
+          </div>
+          <div class="grid4" id="grid">
+            <article class="card" data-g="damen">
+              <div class="c-img"><span class="badge">−63 %</span><img src="p_mandala.png" alt="TAGOSS Mandala T Ladies"></div>
+              <div class="c-body"><div class="c-brand">TAGOSS · Damen</div><div class="c-name">Mandala T Ladies</div>
+                <div class="c-price"><b>14,95 €</b><s>40,00 €</s></div><div class="c-save">Du sparst 25,05 €</div>
+                <div class="sizes" role="group" aria-label="Größe"><button aria-pressed="false">XS</button><button aria-pressed="false">S</button><button aria-pressed="false">M</button><button aria-pressed="false">L</button><button aria-pressed="false">XL</button><button aria-pressed="false">XXL</button></div>
+                <button class="add" aria-disabled="true" data-name="Mandala T Ladies">Größe wählen</button></div>
+            </article>
+            <article class="card" data-g="damen">
+              <div class="c-img"><span class="badge">−54 %</span><img src="p_ramble.png" alt="Marmot Wm's Ramble Component Jacket"></div>
+              <div class="c-body"><div class="c-brand">Marmot · Damen</div><div class="c-name">Ramble Component Jacket</div>
+                <div class="c-price"><b>114,95 €</b><s>249,95 €</s></div><div class="c-save">Du sparst 135,00 €</div>
+                <div class="sizes" role="group" aria-label="Größe"><button aria-pressed="false">S</button><button aria-pressed="false">M</button><button aria-pressed="false">L</button></div>
+                <button class="add" aria-disabled="true" data-name="Marmot Ramble Component Jacket">Größe wählen</button></div>
+            </article>
+            <article class="card" data-g="herren">
+              <div class="c-img"><span class="badge">−43 %</span><img src="p_raindance.png" alt="TAGOSS Raindance Double Jacket"></div>
+              <div class="c-body"><div class="c-brand">TAGOSS · Herren</div><div class="c-name">Raindance Double Jacket</div>
+                <div class="c-price"><b>199,95 €</b><s>349,95 €</s></div><div class="c-save">Du sparst 150,00 €</div>
+                <div class="sizes" role="group" aria-label="Größe"><button aria-pressed="false">S</button><button aria-pressed="false">M</button><button aria-pressed="false">L</button><button aria-pressed="false">XL</button><button aria-pressed="false">XXL</button><button aria-pressed="false">3XL</button></div>
+                <button class="add" aria-disabled="true" data-name="Raindance Double Jacket">Größe wählen</button></div>
+            </article>
+            <article class="card" data-g="herren">
+              <div class="c-img"><span class="badge">−50 %</span><img src="p_alpine.png" alt="TAGOSS Alpine Double Jacket II"></div>
+              <div class="c-body"><div class="c-brand">TAGOSS · Herren</div><div class="c-name">Alpine Double Jacket II</div>
+                <div class="c-price"><b>199,95 €</b><s>399,95 €</s></div><div class="c-save">Du sparst 200,00 €</div>
+                <div class="sizes" role="group" aria-label="Größe"><button aria-pressed="false">S</button><button aria-pressed="false">M</button><button aria-pressed="false">L</button><button aria-pressed="false">XL</button><button aria-pressed="false">XXL</button><button aria-pressed="false">3XL</button></div>
+                <button class="add" aria-disabled="true" data-name="Alpine Double Jacket II">Größe wählen</button></div>
+            </article>
+          </div>
+        </div></section>
+
+        <!-- MARKEN -->
+        <section class="sec"><div class="pad">
+          <div class="sh"><h2>Marken, die wir kennen</h2><a class="more" href="#">Alle Marken <svg class="i"><use href="#i-arrow"/></svg></a></div>
+          <div class="worlds">
+            <a class="world" href="#"><img src="slider_Meindl.png" alt="" style="object-position:88% 50%"><div><span><h3>Meindl</h3><p>Schuhe für Aktive</p></span><span class="go"><svg class="i"><use href="#i-arrow"/></svg></span></div></a>
+            <a class="world" href="#"><img src="slider_Deuter.png" alt="" style="object-position:88% 50%"><div><span><h3>Deuter</h3><p>Rucksäcke für jede Tour</p></span><span class="go"><svg class="i"><use href="#i-arrow"/></svg></span></div></a>
+            <a class="world" href="#"><img src="slider_Tatonka.png" alt="" style="object-position:88% 50%"><div><span><h3>Tatonka</h3><p>Expedition Life</p></span><span class="go"><svg class="i"><use href="#i-arrow"/></svg></span></div></a>
+          </div>
+          <div class="logos" aria-label="Weitere Marken">
+            <a href="#"><img src="logo_Meindl.png" alt="Meindl"></a>
+            <a href="#"><img src="logo_Deuter.png" alt="Deuter"></a>
+            <a href="#"><img src="logo_Hanwag.png" alt="Hanwag"></a>
+            <a href="#"><img src="logo_Schoeffel.png" alt="Schöffel"></a>
+            <a href="#"><img src="logo_Fjaellraeven.png" alt="Fjällräven"></a>
+            <a href="#"><img src="logo_Lowa.png" alt="Lowa"></a>
+            <a href="#"><img src="logo_Osprey.png" alt="Osprey"></a>
+            <a href="#"><img src="logo_Tatonka.png" alt="Tatonka"></a>
+            <a href="#"><img src="logo_TAGOSS.png" alt="TAGOSS"></a>
+            <a href="#"><img src="logo_Marmot.png" alt="Marmot"></a>
+            <a href="#"><img src="logo_Columbia.png" alt="Columbia"></a>
+            <a href="#"><img src="logo_DEVOLD.png" alt="Devold"></a>
+          </div>
+        </div></section>
+
+        <!-- BERATUNG -->
+        <section class="help"><div class="pad">
+          <div>
+            <h2>Unsicher bei Größe oder Modell? <em>Ruf an.</em></h2>
+            <p>Seit 46 Jahren beraten wir Wanderer, Trekker und Bergsteiger. Persönlich, am Telefon oder im Ladengeschäft.</p>
+            <a class="tel" href="tel:+497181938060"><svg class="i"><use href="#i-phone"/></svg>+49 7181 938060</a>
+            <div class="hours">Montag bis Freitag, 9–17 Uhr</div>
+          </div>
+          <ul class="svc">
+            <li><a href="#"><span><svg class="i"><use href="#i-store"/></svg>Ladengeschäft &amp; Öffnungszeiten</span><svg class="i"><use href="#i-arrow"/></svg></a></li>
+            <li><a href="#"><span><svg class="i"><use href="#i-ruler"/></svg>Größentabellen</span><svg class="i"><use href="#i-arrow"/></svg></a></li>
+            <li><a href="#"><span><svg class="i"><use href="#i-gift"/></svg>Geschenkgutscheine</span><svg class="i"><use href="#i-arrow"/></svg></a></li>
+          </ul>
+        </div></section>
+
+        <!-- NEWSLETTER -->
+        <section class="news"><div class="pad">
+          <div><h2>Gutscheine und Angebote zuerst</h2><p>Der Newsletter kommt, wenn es etwas zu sparen gibt. Abmeldung jederzeit.</p></div>
+          <div>
+            <form id="nl" onsubmit="return false"><input type="email" placeholder="Deine E-Mail-Adresse" aria-label="E-Mail-Adresse" required><button type="submit">Anmelden</button></form>
+            <p class="ok" id="nlok" hidden>Fast geschafft: Wir haben dir eine Bestätigung geschickt.</p>
+          </div>
+        </div></section>
+
+        <footer class="s-foot"><div class="pad">
+          <div><img src="larca_logo.png" alt="LARCA Outdoor's Best"><p>LARCA Sportartikel GmbH<br>Outdoor's Best seit 1980</p></div>
+          <div><h4>Kontakt</h4><ul><li>+49 7181 938060</li><li>Mo–Fr 9–17 Uhr</li><li><a href="#">Kontaktformular</a></li></ul></div>
+          <div><h4>Service</h4><ul><li><a href="#">Größentabellen</a></li><li><a href="#">Pflegehinweise</a></li><li><a href="#">Rückgabe &amp; FAQ</a></li><li><a href="#">Gutscheine</a></li></ul></div>
+          <div><h4>Zahlung</h4><ul><li>Kauf auf Rechnung</li><li>Vorkasse</li></ul></div>
+        </div>
+        <div class="pad legal"><span>© 2026 LARCA Sportartikel GmbH</span><span>Preise in EUR inkl. MwSt. zzgl. Versand · <a href="#">AGB</a> · <a href="#">Datenschutz</a> · <a href="#">Impressum</a></span></div>
+        </footer>
+      </div>
+    </div>
+    </div>
+    <p class="note">Bilder, Marken und Preise stammen von larca.de (Stand 07.10.2026) und dienen nur der Konzeptdarstellung. Rabatte sind aus Streich- und Aktionspreis berechnet. Der „Angebot der Woche“-Slot wäre im Shopify-Backend frei wählbar.</p>
+  </div>
+</section>
+
+<section class="block" id="warum">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Was sich ändert</h2>
+      <p>Grundlage ist die öffentliche Startseite von larca.de. Was dort steckt, ist gut. Es steht nur nicht dort, wo Besucher entscheiden.</p>
+    </div>
+    <div class="obs">
+      <article><h3>Angebot statt Bannerkarussell</h3><p>Heute wechseln vier Markenbilder im Slider, ohne Preis und ohne Ziel. Der neue Einstieg zeigt ein Foto, eine Aussage und ein konkretes Angebot mit Preis.</p></article>
+      <article><h3>Die stärksten Argumente nach oben</h3><p>46 Jahre, 200.000 Artikel lagernd, faire Preise und Kauf auf Rechnung sind Gründe zu kaufen. Sie bekommen eine eigene Leiste direkt unter dem Einstieg, mit gezeichneten Icons und lesbarer Schrift.</p></article>
+      <article><h3>Kategorien als Einstieg</h3><p>Bei 200.000 Artikeln reichen vier Produkte auf der Startseite nicht. Die Kacheln mit Produktbild bringen Besucher in zwei Klicks zur Auswahl, und die Sale-Kachel nennt den höchsten Rabatt als Zahl.</p></article>
+      <article><h3>Ersparnis als Zahl, Größe in der Kachel</h3><p>„Du sparst 200,00 €“ wirkt stärker als zwei durchgestrichene Preise. Wer die Größe direkt in der Kachel wählt, spart sich den Umweg über die Produktseite.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="block shopify" id="shopify">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Von WebSale 8 auf Shopify</h2>
+      <p>Der Shop läuft heute auf WebSale 8. Die Startseite oben ist die Hülle. Die Migration macht sie in der Praxis schneller zu ändern, ohne Entwickler für jede Aktion.</p>
+    </div>
+    <div class="steps">
+      <article><h3>Produkte, Varianten, Größen</h3><p>Der Katalog zieht mit allen Größen und Farben um. Größenwahl in der Kachel braucht saubere Varianten, die legen wir im Import an.</p></article>
+      <article><h3>URLs und Rankings bleiben</h3><p>Jede bisherige Adresse bekommt eine 301-Weiterleitung. Larca verliert beim Umzug keine Sichtbarkeit bei Google.</p></article>
+      <article><h3>Rechnung und Vorkasse</h3><p>Die bisherigen Zahlarten gehören in den Checkout. Wie der Rechnungskauf bei Shopify abgebildet wird, klären wir vor dem Start.</p></article>
+      <article><h3>Kunden, Bestände, Warenwirtschaft</h3><p>Kundenkonten und Bestellhistorie ziehen mit. Wie Lagerbestände aus eurer Warenwirtschaft nach Shopify laufen, ist die wichtigste offene Frage fürs erste Gespräch.</p></article>
+    </div>
+    <div class="proof">
+      <p>Wir haben Blue Fire (bluefireco) von Magento auf Shopify gebracht und betreuen dort bis heute das gesamte Online-Marketing. Wer den Shop baut, beantwortet auch die Fragen danach.</p>
+      <a class="btn solid" href="https://velonify.de">Gespräch vereinbaren</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot"><div class="wrap"><span>Velonify · Konzept für LARCA Sportartikel GmbH</span><span>Alle Marken- und Produktrechte liegen bei den jeweiligen Inhabern.</span></div></footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><i></i><span id="toastT"></span></div>
+
+<script>
+(function(){
+  const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+  const stage=$('#stage');
+
+  /* Desktop / Mobil */
+  $$('.dev button').forEach(b=>b.addEventListener('click',()=>{
+    stage.dataset.dev=b.dataset.dev;
+    $$('.dev button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+  }));
+
+  /* Tabs Damen / Herren */
+  $$('.tabs button').forEach(b=>b.addEventListener('click',()=>{
+    $$('.tabs button').forEach(x=>x.setAttribute('aria-selected',String(x===b)));
+    $$('#grid .card').forEach(c=>{c.hidden=!(b.dataset.f==='all'||c.dataset.g===b.dataset.f)});
+  }));
+
+  /* Größe wählen -> Warenkorb */
+  let n=0, tt;
+  const cnt=$('#cnt'), toast=$('#toast'), toastT=$('#toastT');
+  const say=t=>{toastT.textContent=t;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),2600)};
+  $$('#grid .card').forEach(card=>{
+    const add=$('.add',card); let size=null;
+    $$('.sizes button',card).forEach(sb=>sb.addEventListener('click',()=>{
+      size=sb.textContent;
+      $$('.sizes button',card).forEach(x=>x.setAttribute('aria-pressed',String(x===sb)));
+      add.setAttribute('aria-disabled','false'); add.classList.remove('done');
+      add.textContent='In den Warenkorb';
+    }));
+    add.addEventListener('click',()=>{
+      if(add.getAttribute('aria-disabled')==='true'){
+        say('Bitte zuerst eine Größe wählen.');
+        $('.sizes',card).animate([{transform:'translateX(0)'},{transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(0)'}],{duration:260});
+        return;
+      }
+      n++; cnt.textContent=n; cnt.classList.remove('bump'); void cnt.offsetWidth; cnt.classList.add('bump');
+      add.classList.add('done'); add.textContent='Im Warenkorb';
+      say(add.dataset.name+' · Größe '+size+' liegt im Warenkorb');
+      setTimeout(()=>{add.classList.remove('done');add.textContent='In den Warenkorb'},2200);
+    });
+  });
+  $('#cartBtn').addEventListener('click',()=>say(n?n+' Artikel im Warenkorb':'Dein Warenkorb ist noch leer.'));
+
+  /* Newsletter */
+  $('#nl').addEventListener('submit',e=>{e.preventDefault();if(e.target.checkValidity()){e.target.hidden=true;$('#nlok').hidden=false}});
+})();
+</script>
+</body>
+</html>
